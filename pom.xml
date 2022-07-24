@@ -81,6 +81,7 @@
 						<version>1.12.1</version>
 						<configuration>
 							<workingDirectory>frontend</workingDirectory>
+							<installDirectory>target</installDirectory>
 						</configuration>
 						<executions>
 							<execution>
