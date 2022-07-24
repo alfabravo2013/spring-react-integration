@@ -5,7 +5,7 @@ Based on the idea from [this tutorial](https://developer.okta.com/blog/2022/06/1
 The integration is provided by using [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin) and maven-resources-plugin
 which job is managed by relevant profiles. 
 
-### Getting started
+## Getting started
 
 After cloning, run this command in the `/frontend` directory: 
 
@@ -41,3 +41,31 @@ Or, alternatively, you can just run
 ```mvn clean install -Pprod```
 
 The production version of the app runs on `localhost:9999`.
+
+## How to proxy frontend requests
+
+The following line in the `package.json` file defines a proxy to redirect requests from 
+the react development server running on `localhost:3000` to the backend server running on `localhost:9999`:
+
+```
+"proxy": "http://localhost:9999"
+```
+
+If `webpack` dependency is installed, the proxy must be defined in the `webpack.config.js` file instead:
+
+```
+module.exports = {
+  ...
+  devServer: {
+    port: 3000,
+    hot: true,
+    open: true,
+    proxy: {
+      "/api": {
+        target: "http://localhost:3000",
+        router: () => "http://localhost:9999",
+      },
+    },
+  },
+  ...
+```
